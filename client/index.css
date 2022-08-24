@@ -18,10 +18,20 @@ button {
 .about-button {
     font-weight: 600;
     font-size: medium;
+    padding-bottom: 10px;
 }
 
 p {
     font-family: 'Anton', sans-serif;
     font-weight: 400;
     text-align: center;
+}
+
+.noteDropDown {
+    font-weight: 600;
+    font-size: large;
+    font-family: 'Anton', sans-serif;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

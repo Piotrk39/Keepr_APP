@@ -17,6 +17,9 @@ import { useEffect, useState } from 'react';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(0);
+    const [expanded, setExpanded] = useState(false);
+    const [openNote, setOpenNote] = useState(false);
+
     const dispatch = useDispatch();
     const classes = useStyles();
   
@@ -24,7 +27,6 @@ const App = () => {
       dispatch(getPosts());
     }, [currentId, dispatch]);
 
-    const [expanded, setExpanded] = useState(false);
 
     const handlePageChangeGitHub = () => {
        window.open("https://github.com/Piotrk39/Keepr_APP", "_blank");
@@ -40,14 +42,32 @@ const App = () => {
 
     const actionButtonSX = {
         color: "#f5ba13",
+        paddingLeft: 2,
         "&:hover": {
             color: '#332f2f',
         },
     }
 
+    const noteButtonSX = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      borderRadius: '15px',
+      position: 'relative',
+      backgroundColor: '#fcfcfc',
+      marginBottom: 2,
+      "&:hover": {
+        boxShadow: 9,
+      },
+    }
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const handleNoteClick = () => {
+      setOpenNote(!openNote);
+  };
 
     return (
       <Container maxWidth="lg">
@@ -74,17 +94,37 @@ const App = () => {
             </p>
             </CardContent>
         </Collapse>
+      </AppBar>
+
+
+      <Container className="noteDropDown" sx={noteButtonSX} maxWidth="lg">
+      
+        <button
+          expand={openNote}
+          onClick={handleNoteClick}
+          aria-expanded={openNote}
+          aria-label="show more"
+          className="about-button"
+        >
+           Make a Note
+        </button>
         
-        </AppBar>
-        <Grow in>
-          <Container>
-            <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-              <Grid item xs={12} sm={7}>
-                <Posts setCurrentId={setCurrentId} />
-              </Grid>
+        <Collapse in={openNote} timeout="auto" unmountOnExit>
+            <CardContent>
               <Grid item xs={12} sm={4}>
                 <Form currentId={currentId} setCurrentId={setCurrentId} />
               </Grid>
+            </CardContent>
+        </Collapse>
+
+      </Container>
+        <Grow in>
+          <Container >
+            <Grid container justify="space-between" alignItems="stretch" spacing={3} justifyContent="center">
+              <Grid item xs={12} sm={10} >
+                <Posts setCurrentId={setCurrentId} />
+              </Grid>
+              
             </Grid>
           </Container>
         </Grow>

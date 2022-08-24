@@ -83,8 +83,9 @@ const Form = ({ currentId, setCurrentId }) => {
     justifyContent: 'space-between',
     borderRadius: '15px',
     position: 'relative',
+    boxShadow: 'none',
     "&:hover": {
-      boxShadow: 9,
+      // boxShadow: 9,
     },
   };
   
@@ -96,12 +97,10 @@ const Form = ({ currentId, setCurrentId }) => {
     
     <Paper sx={paperSX}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Make a Note'}</Typography>
+        <Typography variant="h6">{currentId ? `Editing "${post.title}"` : ''}</Typography>
         <TextField name="title" variant="outlined" label="Title" fullWidth color="warning" value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField name="message" variant="outlined" label="Message" fullWidth color="warning" multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-        
-        
-        
+       
         <Button
           expand={expanded}
           onClick={handleExpandClick}
@@ -113,13 +112,12 @@ const Form = ({ currentId, setCurrentId }) => {
         </Button>
         
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
+            <CardContent sx={{width: '100vw'}}>
                 <FileBase className={classes.fileBase} multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}/>
             </CardContent>
         </Collapse>
-    
-        <Button variant="contained" sx={createSX} type="submit" size="small" >Create</Button>
-        <Button sx={clearSX} variant="contained" onClick={clear} size="small" >Clear</Button>
+          <Button variant="contained" sx={createSX} type="submit" size="small" >Create</Button>
+          <Button sx={clearSX} variant="contained" onClick={clear} size="small" >Clear</Button>
       </form>
     </Paper>
   );
